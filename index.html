@@ -304,6 +304,175 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/29/聊一聊purcell的配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="皮聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/16848310?s=400&u=2fdf9659bfec8834a09b72900e061ebf044a24ff&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tisp">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/29/聊一聊purcell的配置/" itemprop="url">
+                  聊一聊Purcell的Configuration
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T19:51:58+08:00">
+                2017-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/emacs/" itemprop="url" rel="index">
+                    <span itemprop="name">emacs</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note warning"><p>工欲善其事必先利器，而emacs绝对是你值得投入一些学习时间的。可能有时候在别人眼中你那么不合群，总弄些奇奇怪怪的玩意，再次说下emacs不是玩具，是神之编辑器。<br>虽然现在你的一些炫技在别人看来是那么的蹩脚，那就暂时不要show出来，背地里练习，等到时机成熟你总能亮瞎一些嫌弃的眼光。<br>有点扯远了，我也是因为看了看了陈斌大神的，一年成为emacs高手之后开始稳定下来不再到处找各种dotfile。因为purcell的配置确实还是比较容易上手，而且性能方面很好，你值得拥有。</p>
+</div>
+<h2 id="新手如何配置purcell的configuration"><a href="#新手如何配置purcell的configuration" class="headerlink" title="新手如何配置purcell的configuration"></a>新手如何配置purcell的configuration</h2><ol>
+<li><p>首先你要安装emacs这个是必须条件，然后先删除~/.emacs文件，这个是emacs首次打开的时候自动生成的配置文件，我们一般会用~/.emacs.d/init.el替换它。<br> 当然你得知道purcell的仓库地址: <a href="https://github.com/purcell/emacs.d" title="purcell的配置" target="_blank" rel="external">purcell的配置</a></p>
+</li>
+<li><p>克隆purcell的配置仓库到你本地的~/.emacs.d，然后重启等待下载一些package，当然这里下载要翻墙，如果你想下载快点可以将下载源改成emacs-china的源。<br> 怎么改？ good question<br> 找到.emacs.d下面的lisp文件夹下面init-elpa.el文件然后找到长得像我下面这样的一段代码，用我这段覆盖他的那一段就可以了。</p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">;;; Standard package repositories</span></div><div class="line"></div><div class="line"><span class="comment">;; We include the org repository for completeness, but don't normally</span></div><div class="line"><span class="comment">;; use it.</span></div><div class="line">(<span class="name">add-to-list</span> 'package-archives '(<span class="string">"org"</span> . <span class="string">"http://elpa.emacs-china.org/org/"</span>))</div><div class="line"></div><div class="line"></div><div class="line">(<span class="name">defconst</span> sanityinc/no-ssl (<span class="name">and</span> (<span class="name">memq</span> system-type '(windows-nt ms-dos))</div><div class="line">                                (<span class="name">not</span> (<span class="name">gnutls-available-p</span>))))</div><div class="line"></div><div class="line"><span class="comment">;;; Also use Melpa for most packages</span></div><div class="line"><span class="comment">;;; ("gnu"   . "http://elpa.emacs-china.org/gnu/")</span></div><div class="line"><span class="comment">;;;                         ("melpa" . "http://elpa.emacs-china.org/melpa/")</span></div><div class="line">(<span class="name">add-to-list</span> 'package-archives</div><div class="line">             `(<span class="string">"melpa"</span> . ,(if sanityinc/no-ssl</div><div class="line">                              <span class="string">"http://elpa.emacs-china.org/melpa/"</span></div><div class="line">                            <span class="string">"http://elpa.emacs-china.org/melpa/"</span>)))</div><div class="line"></div><div class="line"></div><div class="line">(<span class="name">unless</span> sanityinc/no-ssl</div><div class="line">  <span class="comment">;; Force SSL for GNU ELPA</span></div><div class="line">  (<span class="name">setcdr</span> (<span class="name">assoc</span> <span class="string">"gnu"</span> package-archives) <span class="string">"https://elpa.gnu.org/packages/"</span>))</div><div class="line"></div><div class="line"><span class="comment">;; <span class="doctag">NOTE:</span> In case of MELPA problems, the official mirror URL is</span></div><div class="line"><span class="comment">;; https://www.mirrorservice.org/sites/stable.melpa.org/packages/</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>我开始安装这个配置的时候有个zip包和jar包很难下载下来，不过这个bug他已经修复了，所以我就不提了。这时候打开你的emacs等待包安装完毕吧。</p>
+</li>
+<li><p>如果不想自己写配置这么麻烦的话，其实我们完全可通过customize来实现一些自己的定制，比如：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">M-x customize-themes可以选择自己喜欢的主题，如果少了，没问题去网上找些自己喜欢的然后通过 package-list-packages来进行安装然后再勾选。</div><div class="line">M-x customize 可以定制我们对任意提供了customize接口的mode的需求。</div></pre></td></tr></table></figure>
+<p> 不满足你的需求？那就只能自己写配置了，其实自己写配置的话先照着他那些已经定义好的init-xxx.el那种格式去写，当然要会点elisp。</p>
+<h2 id="如何进行自己的扩展"><a href="#如何进行自己的扩展" class="headerlink" title="如何进行自己的扩展"></a>如何进行自己的扩展</h2></li>
+</ol>
+<ul>
+<li>首先我们需要在lisp文件夹里面创建一个init-local.el的文件，当然这种修改的话purcell是建议你先fork他的代码然后再改，当然这是基本的嘛，不然怎么用git来管理我们的配置对吧。</li>
+<li>自己的配置主要时写在上面创建的文件里，当然他也提供了一个init-preload-local.el的钩子，就是这个preload是提前加载的意思。</li>
+<li><p>我们来看一段我写在local里面的一些配置吧。</p>
+  <figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">;; (require-package 'use-package)</span></div><div class="line"></div><div class="line">(<span class="name">require-package</span> 'youdao-dictionary)</div><div class="line"><span class="comment">;;快捷键的绑定</span></div><div class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-s"</span>) 'sanityinc/swiper-at-point)</div><div class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"C-c y"</span>) 'youdao-dictionary-search-at-point+)</div><div class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"M-&lt;left&gt;"</span>) 'backward-word)</div><div class="line">(<span class="name">global-set-key</span> (<span class="name">kbd</span> <span class="string">"M-&lt;right&gt;"</span>) 'forward-word)</div><div class="line"></div><div class="line"><span class="comment">;; vue-mode的一些初始配置 </span></div><div class="line">(<span class="name">require-package</span> 'vue-mode)</div><div class="line">(<span class="name">after-load</span> 'vue-mode</div><div class="line">  (<span class="name">setq</span> mmm-submode-decoration-level <span class="number">0</span>))</div><div class="line"><span class="comment">;; (use-package vue-mode)</span></div><div class="line">(<span class="name">require-package</span> 'hlinum)</div><div class="line">(<span class="name">hlinum-activate</span>)</div><div class="line"></div><div class="line"><span class="comment">;; org-mode 的bullets主题</span></div><div class="line">(<span class="name">require-package</span> 'org-bullets)</div><div class="line"><span class="comment">;; (use-package org-bullets)</span></div><div class="line">(<span class="name">add-hook</span> 'org-mode-hook (<span class="name">lambda</span> () (<span class="name">org-bullets-mode</span> <span class="number">1</span>)))</div><div class="line"></div><div class="line">(<span class="name">provide</span> 'init-local)</div></pre></td></tr></table></figure>
+<p>  这段配置主要就是绑定了四个快捷键，初始化了一下vue-mode的一些初始配置然后就是添加了一个org的bullets主题。这里最值得注意的是最后一句(provide ‘init-local) 这个是文件的简写名，也就是不要带后缀。</p>
+</li>
+<li><p>如果配置一些其他的便捷的模块，按照这个模式写就可以了。</p>
+</li>
+<li><p>最后放出我自己的是个神马样子吧<br><img src="http://oykp56vnf.bkt.clouddn.com/1.png" alt="org bullets" title="将就着看"></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/2017-05-31-springboot-kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -498,7 +667,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -509,7 +678,7 @@
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -520,7 +689,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
